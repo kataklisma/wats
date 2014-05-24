@@ -1,0 +1,7 @@
+<Alloy>
+	<Window id="arview" class="container" layout="vertical">
+		<View>
+			<Label class="h1" text="Window che contiene la realtà aumentata"></Label>
+		</View>
+	</Window>
+</Alloy>

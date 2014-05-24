@@ -1,0 +1,6 @@
+<Alloy>
+    <Model src="Enemy" id="enemy" instance="true"/>
+    <View id="enemyView">
+        <ImageView id="enemyIcon" image="{$.enemy.icon}" ></ImageView>
+    </View>
+</Alloy>
