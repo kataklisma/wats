@@ -1,10 +1,9 @@
 function Controller() {
     function assignPOIs() {
-        _.each(pois, function(enemy) {
-            Ti.API.info(enemy);
+        pois.each(function(enemy) {
             var enemyController = enemy.getEnemyController();
             var enemyView = enemyController.getView();
-            poi.view = enemyView;
+            enemy.view = enemyView;
         });
         $.arview.pois = pois;
         arConfig.openCamera(headingCallback, locationCallback, accelerometerCallback, closeAR, overlay);
@@ -16,7 +15,8 @@ function Controller() {
         }
         overlayLib.resetViews();
         activePois = [];
-        _.each($.arview.pois, function(poi) {
+        pois.each(function(poi) {
+            Ti.API.info("POI DENTRO REDRAW" + poi);
             if (poi.view) {
                 var distance = locationUtils.calculateDistance(myLocation, poi);
                 if (arConfig.settings.MAX_DIST > distance) {
@@ -110,8 +110,6 @@ function Controller() {
         locationUtils = null;
         overlayLib = null;
         arConfig = null;
-        Ti.Media.hideCamera();
-        navigation.closeWindow($.arview);
     }
     require("alloy/controllers/BaseController").apply(this, Array.prototype.slice.call(arguments));
     this.__controllerPath = "ar";
@@ -121,10 +119,11 @@ function Controller() {
     var $ = this;
     var exports = {};
     $.__views.arview = Ti.UI.createWindow({
+        zIndex: 0,
+        orientationModes: [ Ti.UI.PORTRAIT ],
         backgroundColor: "#f5f5f5",
         top: "0dp",
         left: "0dp",
-        zIndex: 0,
         fullscreen: true,
         navBarHidden: true,
         id: "arview",
@@ -162,13 +161,14 @@ function Controller() {
         closeButton.addEventListener("click", closeAR);
         overlay.add(closeButton);
         pois = args.enemies;
-        pois.fetch();
-        Ti.API.info(pois);
         assignPOIs();
     });
     $.arview.addEventListener("android:back", function() {
         closeAR();
-        $.destroy();
+        if (null != $.arview) {
+            $.arview.close();
+            $.arview = null;
+        }
     });
     _.extend($, exports);
 }

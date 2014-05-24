@@ -27,15 +27,13 @@ $.arview.addEventListener('open', function() {
     locationUtils.initGeoSettings();
 
     //aggiungo il bottone per chiudere su iOS
-    if (OS_ANDROID) {
-        var closeButton = overlayLib.closeButton();
-        closeButton.addEventListener('click', closeAR);
-        overlay.add(closeButton);
-    }
+
+    var closeButton = overlayLib.closeButton();
+    closeButton.addEventListener('click', closeAR);
+    overlay.add(closeButton);
 
     pois = args.enemies;
-    pois.fetch();
-    Ti.API.info(pois);
+
     assignPOIs();
 });
 
@@ -44,16 +42,15 @@ $.arview.addEventListener('open', function() {
  */
 function assignPOIs() {
 
-    _.each(pois, function(enemy) {
-        Ti.API.info(enemy);
+    pois.each(function(enemy) {
         var enemyController = enemy.getEnemyController();
         var enemyView = enemyController.getView();
-
-        poi.view = enemyView;
+        
+        enemy.view = enemyView;
     });
-
+    
     $.arview.pois = pois;
-
+   
     arConfig.openCamera(headingCallback, locationCallback, accelerometerCallback, closeAR, overlay);
 };
 
@@ -89,8 +86,8 @@ function redrawPois() {
     // Draw the Points of Interest on the Views
     activePois = [];
 
-    _.each($.arview.pois, function(poi) {
-
+    pois.each(function(poi) {        
+    Ti.API.info('POI DENTRO REDRAW' + poi);
         if (poi.view) {
             var distance = locationUtils.calculateDistance(myLocation, poi);
             //Ti.API.debug("POI: " + poi.get("name") + " DISTANCE: " + Math.floor(distance));
@@ -268,10 +265,10 @@ function closeAR() {
     arConfig = null;
     //utils = null;
 
-    //if (!OS_ANDROID) {
-    Ti.Media.hideCamera();
-    //}
-    navigation.closeWindow($.arview);
+    if (!OS_ANDROID) {
+        Ti.Media.hideCamera();
+    }
+    //navigation.closeWindow($.arview);
     //$.destroy();
 }
 
@@ -280,6 +277,9 @@ function closeAR() {
  */
 $.arview.addEventListener('android:back', function() {
     closeAR();
-    $.destroy();
+    if($.arview != null){
+        $.arview.close();
+        $.arview = null;
+    }
 });
 

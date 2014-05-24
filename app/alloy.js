@@ -10,10 +10,12 @@
 //
 // Alloy.Globals.someGlobalFunction = function(){};
 
-Alloy.Globals.DefaultEnemy =  {
-            TYPE: "normal",
-            POINT: 1,
-            IMAGE: "/images/enemy.png",
-            NAME: "PIPPO-JOE-LSD"
-    },
-    
+Alloy.Globals.DefaultEnemy = {
+    TYPE : "normal",
+    VALUE : 1,
+    IMAGE : "/images/enemy.png",
+    NAME : "PIPPO-JOE-LSD"
+};
+
+
+

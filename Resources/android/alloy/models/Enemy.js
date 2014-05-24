@@ -17,7 +17,7 @@ exports.definition = {
     extendModel: function(Model) {
         _.extend(Model.prototype, {
             getEnemyController: function() {
-                return Alloy.createController("Enemy", {
+                return Alloy.createController("enemy", {
                     enemy: this
                 });
             }

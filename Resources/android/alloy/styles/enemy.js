@@ -1,1 +1,1 @@
-module.exports = [{"isId":true,"priority":100000.0003,"key":"enemyView","style":{}},{"isId":true,"priority":100000.0004,"key":"enemyIcon","style":{}}];
+module.exports = [{"isApi":true,"priority":1000.0001,"key":"Window","style":{zIndex:0,orientationModes:[Ti.UI.PORTRAIT,],}},{"isId":true,"priority":100000.0003,"key":"enemyView","style":{}},{"isId":true,"priority":100000.0004,"key":"enemyIcon","style":{}}];
