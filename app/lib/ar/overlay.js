@@ -1,20 +1,22 @@
 var arConfig = require("ar/arConfig");
 
 var views = [];
+var overlay = null;
 
 // Create all the view that will contain the points of interest
 function getOverlay() {
 
     // Create the main view - only as wide as the viewport
-    var overlay = Ti.UI.createView({
+    overlay = Ti.UI.createView({
         top : 0,
         left : 0,
         height : arConfig.settings.SCREEN_H,
         width : arConfig.settings.SCREEN_W,
-        backgroundColor : 'transparent'
+        backgroundColor : 'trasnparent'
     });
 
     for (var i = 0; i < arConfig.settings.NUM_OF_VIEWS; i++) {
+
         // create a view 1.6x the screen width
         // they will overlap so any poi view that
         // are near the edge will continue over into the
@@ -67,6 +69,8 @@ function getOverlay() {
     return overlay;
 }
 
+
+
 /**
  * Aggiunge un blip al radar
  */
@@ -78,7 +82,7 @@ function addBlipToRadar(poi, maxDistance, rad) {
     var displayBlip = Ti.UI.createView({
         height : '3dp',
         width : '3dp',
-        backgroundColor : Alloy.Globals.defaultTitleColor,
+        backgroundColor : 'black',
         borderRadius : 4,
         top : (centerY - 1) + "dp",
         left : (centerX - 1) + "dp"

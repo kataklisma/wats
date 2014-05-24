@@ -1,1 +1,0 @@
-module.exports = [{"isId":true,"priority":100000.0003,"key":"enemyView","style":{}},{"isId":true,"priority":100000.0004,"key":"enemyIcon","style":{}}];

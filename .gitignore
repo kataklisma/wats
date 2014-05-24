@@ -7,3 +7,4 @@ tmp
 build/
 build.log
 Resources/
+.project

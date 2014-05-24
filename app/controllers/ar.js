@@ -18,6 +18,31 @@ var label = overlayLib.debugLabel;
 var radar = overlayLib.radar;
 var pois = null;
 
+
+
+
+function onFire() {
+    var radius = 20;
+    var center = {
+        y: Ti.Platform.displayCaps.platformHeight/2,
+        x: Ti.Platform.displayCaps.platformWidth/2 
+    };
+    _.each(views,function(view){
+        if(view.center != null){
+            if((view.center.x - center.x)^2 + (view.center.y - center.y)^2 < radius^2){
+                Ti.API.info(view.center.x - center.x);
+                Ti.API.info(view.center.y);
+                Ti.API.info(center.y);
+                Ti.API.info('--------------------');
+            }else{
+                Ti.API.info('SUCA');
+            }
+        }
+        
+    });
+    
+};
+
 /**
  * All'apertura della finestra carica i poi
  */
@@ -27,33 +52,36 @@ $.arview.addEventListener('open', function() {
     locationUtils.initGeoSettings();
 
     //aggiungo il bottone per chiudere su iOS
-    if (OS_ANDROID) {
-        var closeButton = overlayLib.closeButton();
-        closeButton.addEventListener('click', closeAR);
-        overlay.add(closeButton);
-    }
+
+    var closeButton = overlayLib.closeButton();
+    closeButton.addEventListener('click', closeAR);
+    overlay.add(closeButton);
 
     pois = args.enemies;
-    pois.fetch();
-    Ti.API.info(pois);
+    
     assignPOIs();
 });
 
+/**
+ * listener su click
+ */
+/*overlay.addEventListener("click",function(){
+    Ti.API.info('click');
+}):*/
 /**
  * carica i POIe apre la camera
  */
 function assignPOIs() {
 
-    _.each(pois, function(enemy) {
-        Ti.API.info(enemy);
+    pois.each(function(enemy) {
         var enemyController = enemy.getEnemyController();
         var enemyView = enemyController.getView();
-
-        poi.view = enemyView;
+        
+        enemy.view = enemyView;
     });
-
+    
     $.arview.pois = pois;
-
+   overlay.addEventListener('click', onFire);
     arConfig.openCamera(headingCallback, locationCallback, accelerometerCallback, closeAR, overlay);
 };
 
@@ -81,7 +109,7 @@ function redrawPois() {
     }
 
     // remove any existing views
-    overlayLib.resetViews();
+    //overlayLib.resetViews();
 
     //Resetta il radar
     //overlayLib.resetRadar();
@@ -89,8 +117,8 @@ function redrawPois() {
     // Draw the Points of Interest on the Views
     activePois = [];
 
-    _.each($.arview.pois, function(poi) {
-
+    $.arview.pois.each(function(poi) {        
+    
         if (poi.view) {
             var distance = locationUtils.calculateDistance(myLocation, poi);
             //Ti.API.debug("POI: " + poi.get("name") + " DISTANCE: " + Math.floor(distance));
@@ -132,10 +160,10 @@ function redrawPois() {
     // Add the view
     for (var i = 0; i < activePois.length; i++) {
         var poi = activePois[i];
-
         if (arConfig.settings.SHOW_COLORS) {
             Ti.API.debug('viewColor=' + views[poi.activeView].backgroundColor);
         }
+        
         //Ti.API.debug('bearing=' + poi.bearing);
         // Calcuate the Scaling (for distance)
         var distanceFromSmallest = poi.distance - minDistance;
@@ -144,6 +172,8 @@ function redrawPois() {
         var zoom = (percentFromSmallest * arConfig.settings.DELTA_ZOOM) + arConfig.MIN_ZOOM;
         // Calculate the y (farther away = higher )
         var y = arConfig.MIN_Y + (percentFromSmallest * arConfig.settings.DELTA_Y);
+        
+        
         var view = poi.view;
         // Apply the transform
         var transform = Ti.UI.create2DMatrix();
@@ -154,7 +184,7 @@ function redrawPois() {
             x : poi.pixelOffset,
             y : y
         };
-
+        
         views[poi.activeView].add(view);
 
         // add to blip to the radar
@@ -176,7 +206,7 @@ function headingCallback(e) {
     // TODO probabliamente da qua si cambia la sensibilità dello scorrimento delle viste
     var pixelOffset = arConfig.settings.SCREEN_W - (Math.floor((internalBearing % 1) * arConfig.settings.SCREEN_W));
     //Ti.API.info("OFFSET: " + (Math.floor((internalBearing % 1) * arConfig.settings.SCREEN_W)));
-    //    Ti.API.info("BEARING OFFSET: " + pixelOffset);
+      //  Ti.API.info("BEARING OFFSET: " + pixelOffset);
     if (activeView != lastActiveView) {
         viewChange = true;
         lastActiveView = activeView;
@@ -189,9 +219,9 @@ function headingCallback(e) {
         // Sposto la views in altezza
         var offsetY = (views[i].top * 1.05) - views[i].top;
 
-        /*if (views[i] && Math.abs(pixelOffsetY) > offsetY) {
+        if (views[i] && Math.abs(pixelOffsetY) > offsetY) {
          views[i].top = pixelOffsetY;
-         }*/
+         }
 
         var diff = activeView - i;
         if (diff >= -1 && diff <= 1) {
@@ -231,7 +261,7 @@ function headingCallback(e) {
     }
 
     // REM this if you don't want the user to see their heading
-    label.text = L("ar_label") + Math.floor(currBearing) + "\xB0";
+    label.text = L("HEADING: ") + Math.floor(currBearing) + "\xB0";
 
     // Rotate the radar
     radar.transform = Ti.UI.create2DMatrix().rotate(-1 * currBearing);
@@ -242,8 +272,9 @@ function headingCallback(e) {
  * @param {Object} e
  */
 function accelerometerCallback(e) {
-    pixelOffsetY = (arConfig.settings.SCREEN_H / 20) * Math.floor(-e.z);
+    pixelOffsetY = (arConfig.settings.SCREEN_H / 50) * Math.floor(-e.z);
     //Ti.API.debug("CHANGE OFFSET Y: " + pixelOffsetY);
+    //redrawPois();
 }
 
 /**
@@ -268,10 +299,10 @@ function closeAR() {
     arConfig = null;
     //utils = null;
 
-    //if (!OS_ANDROID) {
-    Ti.Media.hideCamera();
-    //}
-    navigation.closeWindow($.arview);
+    if (!OS_ANDROID) {
+        Ti.Media.hideCamera();
+    }
+    //navigation.closeWindow($.arview);
     //$.destroy();
 }
 
@@ -280,6 +311,9 @@ function closeAR() {
  */
 $.arview.addEventListener('android:back', function() {
     closeAR();
-    $.destroy();
+    if($.arview != null){
+        $.arview.close();
+        $.arview = null;
+    }
 });
 

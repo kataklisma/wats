@@ -1,5 +1,7 @@
 "Window": {
 	font: {
 		fontFamily: 'type_writer'
-	}
+	},
+	zIndex: 0,
+	orientationModes: [Ti.UI.PORTRAIT]
 }
