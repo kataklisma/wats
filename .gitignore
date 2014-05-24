@@ -6,5 +6,5 @@ tmp
 .map
 build/
 build.log
-Resources/
+Resources/*
 .project

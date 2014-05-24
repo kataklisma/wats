@@ -14,7 +14,7 @@ var settings = {
     SHOW_COLORS : false,
     COLORS : ['red', 'yellow', 'pink', 'green', 'purple', 'orange', 'blue', 'aqua', 'white', 'silver'],
     NUM_OF_VIEWS : 9,
-    MAX_DIST : 50000, // in metri
+    MAX_DIST : 5000, // in metri
 };
 
 /**

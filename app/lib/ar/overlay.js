@@ -15,6 +15,7 @@ function getOverlay() {
     });
 
     for (var i = 0; i < arConfig.settings.NUM_OF_VIEWS; i++) {
+        
         // create a view 1.6x the screen width
         // they will overlap so any poi view that
         // are near the edge will continue over into the
@@ -78,7 +79,7 @@ function addBlipToRadar(poi, maxDistance, rad) {
     var displayBlip = Ti.UI.createView({
         height : '3dp',
         width : '3dp',
-        backgroundColor : Alloy.Globals.defaultTitleColor,
+        backgroundColor : 'black',
         borderRadius : 4,
         top : (centerY - 1) + "dp",
         left : (centerX - 1) + "dp"

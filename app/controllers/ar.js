@@ -33,7 +33,6 @@ $.arview.addEventListener('open', function() {
     overlay.add(closeButton);
 
     pois = args.enemies;
-
     assignPOIs();
 });
 
@@ -78,7 +77,7 @@ function redrawPois() {
     }
 
     // remove any existing views
-    overlayLib.resetViews();
+    //overlayLib.resetViews();
 
     //Resetta il radar
     //overlayLib.resetRadar();
@@ -86,8 +85,8 @@ function redrawPois() {
     // Draw the Points of Interest on the Views
     activePois = [];
 
-    pois.each(function(poi) {        
-    Ti.API.info('POI DENTRO REDRAW' + poi);
+    $.arview.pois.each(function(poi) {        
+    
         if (poi.view) {
             var distance = locationUtils.calculateDistance(myLocation, poi);
             //Ti.API.debug("POI: " + poi.get("name") + " DISTANCE: " + Math.floor(distance));
@@ -129,10 +128,10 @@ function redrawPois() {
     // Add the view
     for (var i = 0; i < activePois.length; i++) {
         var poi = activePois[i];
-
         if (arConfig.settings.SHOW_COLORS) {
             Ti.API.debug('viewColor=' + views[poi.activeView].backgroundColor);
         }
+        
         //Ti.API.debug('bearing=' + poi.bearing);
         // Calcuate the Scaling (for distance)
         var distanceFromSmallest = poi.distance - minDistance;
@@ -141,6 +140,8 @@ function redrawPois() {
         var zoom = (percentFromSmallest * arConfig.settings.DELTA_ZOOM) + arConfig.MIN_ZOOM;
         // Calculate the y (farther away = higher )
         var y = arConfig.MIN_Y + (percentFromSmallest * arConfig.settings.DELTA_Y);
+        
+        
         var view = poi.view;
         // Apply the transform
         var transform = Ti.UI.create2DMatrix();
@@ -151,7 +152,7 @@ function redrawPois() {
             x : poi.pixelOffset,
             y : y
         };
-
+        
         views[poi.activeView].add(view);
 
         // add to blip to the radar
@@ -173,7 +174,7 @@ function headingCallback(e) {
     // TODO probabliamente da qua si cambia la sensibilità dello scorrimento delle viste
     var pixelOffset = arConfig.settings.SCREEN_W - (Math.floor((internalBearing % 1) * arConfig.settings.SCREEN_W));
     //Ti.API.info("OFFSET: " + (Math.floor((internalBearing % 1) * arConfig.settings.SCREEN_W)));
-    //    Ti.API.info("BEARING OFFSET: " + pixelOffset);
+      //  Ti.API.info("BEARING OFFSET: " + pixelOffset);
     if (activeView != lastActiveView) {
         viewChange = true;
         lastActiveView = activeView;
@@ -186,9 +187,9 @@ function headingCallback(e) {
         // Sposto la views in altezza
         var offsetY = (views[i].top * 1.05) - views[i].top;
 
-        /*if (views[i] && Math.abs(pixelOffsetY) > offsetY) {
+        if (views[i] && Math.abs(pixelOffsetY) > offsetY) {
          views[i].top = pixelOffsetY;
-         }*/
+         }
 
         var diff = activeView - i;
         if (diff >= -1 && diff <= 1) {
@@ -228,7 +229,7 @@ function headingCallback(e) {
     }
 
     // REM this if you don't want the user to see their heading
-    label.text = L("ar_label") + Math.floor(currBearing) + "\xB0";
+    label.text = L("HEADING: ") + Math.floor(currBearing) + "\xB0";
 
     // Rotate the radar
     radar.transform = Ti.UI.create2DMatrix().rotate(-1 * currBearing);
@@ -239,8 +240,9 @@ function headingCallback(e) {
  * @param {Object} e
  */
 function accelerometerCallback(e) {
-    pixelOffsetY = (arConfig.settings.SCREEN_H / 20) * Math.floor(-e.z);
+    pixelOffsetY = (arConfig.settings.SCREEN_H / 50) * Math.floor(-e.z);
     //Ti.API.debug("CHANGE OFFSET Y: " + pixelOffsetY);
+    //redrawPois();
 }
 
 /**

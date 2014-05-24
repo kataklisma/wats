@@ -39,8 +39,8 @@ exports.generateEnemy = function(player_latitude, player_longitute, gamearea_rad
 };
 
 exports.calculateBearing = function(point1, point2) {
-    var lat2 = point2.latitude == null ? point2.get("latitude") : point2.latitude;
-    var lon2 = point2.longitude == null ? point2.get("longitude") : point2.longitude;
+    var lat2 = point2.latitude == null ? point2.get("lat") : point2.latitude;
+    var lon2 = point2.longitude == null ? point2.get("lon") : point2.longitude;
 
     var radlat1 = exports.toRad(point1.latitude);
     var radlat2 = exports.toRad(lat2);
@@ -56,17 +56,18 @@ exports.calculateBearing = function(point1, point2) {
  */
 exports.calculateDistance = function(point1, point2) {
 
-    //Ti.API.info("point1 " + JSON.stringify(point1));
-    //Ti.API.info("point2 " + JSON.stringify(point2));
+    //Ti.API.info("LOCATION " + JSON.stringify(point1));
+    //Ti.API.info("PUNTO " + JSON.stringify(point2));
     var R = 6371;
 
-    var lat2 = point2.latitude == null ? point2.get("latitude") : point2.latitude;
-    var lon2 = point2.longitude == null ? point2.get("longitude") : point2.longitude;
+    var lat2 = point2.latitude == null ? point2.get("lat") : point2.latitude;
+    var lon2 = point2.longitude == null ? point2.get("lon") : point2.longitude;
     var dLat = (exports.toRad(lat2 - point1.latitude));
     var dLon = (exports.toRad(lon2 - point1.longitude));
     var a = Math.sin(dLat / 2) * Math.sin(dLat / 2) + Math.cos(exports.toRad(point1.latitude)) * Math.cos(exports.toRad(lat2)) * Math.sin(dLon / 2) * Math.sin(dLon / 2);
     var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
     // Distance in m
+    
     return R * c * 1000;
 };
 
