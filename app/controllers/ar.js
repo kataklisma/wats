@@ -31,9 +31,13 @@ $.arview.addEventListener('open', function() {
         closeButton.addEventListener('click', closeAR);
         overlay.add(closeButton);
     }
-    pois = Alloy.Collections.Enemy;
+    
+    pois = args.enemies;
+    pois.fetch();
     assignPOIs();
 });
+
+
 
 /**
  * carica i POIe apre la camera
@@ -41,11 +45,11 @@ $.arview.addEventListener('open', function() {
 function assignPOIs() {
 
     _.each(pois, function(poi) {
-        var arPinController = poi.getArPinController();
+       /* var arPinController = poi.getArPinController();
         var arPinView = arPinController.getView();
         arPinView.addEventListener('click', function(e) {
             arPinController.clickPoi(overlay);
-        });
+        });*/
         poi.view = arPinView;
     });
 

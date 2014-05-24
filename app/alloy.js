@@ -9,3 +9,10 @@
 // object. For example:
 //
 // Alloy.Globals.someGlobalFunction = function(){};
+
+Alloy.Globals.DefaultEnemy =  {
+            TYPE: "normal",
+            POINT: 1,
+            IMAGE: "/images/enemy.png",
+            NAME: "PIPPO-JOE-LSD"
+    },
