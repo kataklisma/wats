@@ -9,17 +9,19 @@ exports.toRad = function(val) {
  * calcola l'angolo tra due punti
  */
 
+//	example of use: locationUtils.generateEnemy(37.509319, 15.083504000000005, 1, 10);	
+
 exports.generateEnemy = function(player_latitude, player_longitute, gamearea_radius, number_of_enemies) {
 	var enemies = Alloy.createCollection("Enemy");
-	for ( i = 0; i < number_of_enemies; i++) {
+	 for ( i = 0; i < number_of_enemies; i++) {
 		var angle = (Math.random() * 360);
-		var distance = (Math.random() * radius).toRad;
+		var distance = ((Math.random() * gamearea_radius) * Math.PI ) / 180;
 
 		deltaX = distance * Math.cos(angle);
 		deltaY = distance * Math.sin(angle);
 
-		xnew = lat + deltaX;
-		ynew = lon + deltaY;
+		xnew = player_latitude + deltaX;
+		ynew = player_longitute + deltaY;
 
 		var enemy = Alloy.createModel("Enemy", {
 			lat : xnew,
@@ -32,7 +34,7 @@ exports.generateEnemy = function(player_latitude, player_longitute, gamearea_rad
 		});
 		enemy.save();
 		enemies.add(enemy);
-	}
+	 }
 	return enemies;
 };
 
