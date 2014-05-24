@@ -2,6 +2,7 @@ var args = arguments[0] || {};
 
 var arConfig = require("ar/arConfig");
 var overlayLib = require("ar/overlay");
+var locationUtils = require('locationUtils');
 
 // VARIABILI  LOCALI
 var lastActiveView = -1;
@@ -31,26 +32,24 @@ $.arview.addEventListener('open', function() {
         closeButton.addEventListener('click', closeAR);
         overlay.add(closeButton);
     }
-    
+
     pois = args.enemies;
     pois.fetch();
+    Ti.API.info(pois);
     assignPOIs();
 });
-
-
 
 /**
  * carica i POIe apre la camera
  */
 function assignPOIs() {
 
-    _.each(pois, function(poi) {
-       /* var arPinController = poi.getArPinController();
-        var arPinView = arPinController.getView();
-        arPinView.addEventListener('click', function(e) {
-            arPinController.clickPoi(overlay);
-        });*/
-        poi.view = arPinView;
+    _.each(pois, function(enemy) {
+        Ti.API.info(enemy);
+        var enemyController = enemy.getEnemyController();
+        var enemyView = enemyController.getView();
+
+        poi.view = enemyView;
     });
 
     $.arview.pois = pois;

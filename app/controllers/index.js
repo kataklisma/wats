@@ -1,5 +1,4 @@
 function start(e) {
-    
     createEnemies();
     
     Alloy.createController("ar", {
@@ -18,14 +17,9 @@ function createEnemies() {
         status : 0
     });
 
-    if (enemy.isValid()) {
-        enemy.save();
-        Alloy.Collections.Enemy.add(enemy);
+    enemy.save();
+    Alloy.Collections.Enemy.add(enemy);
 
-
-    } else {
-        alert("Creazione nemico non valida");
-    }
 }
 
 $.index.open();

@@ -10,7 +10,7 @@
     <icon>appicon.png</icon>
     <fullscreen>false</fullscreen>
     <navbar-hidden>false</navbar-hidden>
-    <analytics>true</analytics>
+    <analytics>false</analytics>
     <guid>a0b9e15c-0a36-482d-96a0-e2df050c2d88</guid>
     <property name="ti.ui.defaultunit" type="string">dp</property>
     <ios>
@@ -38,7 +38,7 @@
             </dict>
         </plist>
     </ios>
-    < <manifest>
+    <manifest>
             <supports-screens android:anyDensity="true"/>
             <!-- MESSO PER IL TELEFONO DI PEPPE-->
             <!-- This tells the Marketplace and the system what versions of Android your app supports -->
@@ -62,7 +62,7 @@
                 
                 <activity
                     android:configChanges="keyboardHidden|orientation"
-                    android:name="ti.modules.titanium.media.TiCameraActivity" <!--android:theme="@android:style/Theme.Translucent.NoTitleBar.Fullscreen"-->/>
+                    android:name="ti.modules.titanium.media.TiCameraActivity" android:theme="@android:style/Theme.Translucent.NoTitleBar.Fullscreen"/>
             </application>
         </manifest>
     <mobileweb>

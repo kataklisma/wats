@@ -16,3 +16,4 @@ Alloy.Globals.DefaultEnemy =  {
             IMAGE: "/images/enemy.png",
             NAME: "PIPPO-JOE-LSD"
     },
+    
