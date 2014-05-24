@@ -18,6 +18,31 @@ var label = overlayLib.debugLabel;
 var radar = overlayLib.radar;
 var pois = null;
 
+
+
+
+function onFire() {
+    var radius = 20;
+    var center = {
+        y: Ti.Platform.displayCaps.platformHeight/2,
+        x: Ti.Platform.displayCaps.platformWidth/2 
+    };
+    _.each(views,function(view){
+        if(view.center != null){
+            if((view.center.x - center.x)^2 + (view.center.y - center.y)^2 < radius^2){
+                Ti.API.info(view.center.x - center.x);
+                Ti.API.info(view.center.y);
+                Ti.API.info(center.y);
+                Ti.API.info('--------------------');
+            }else{
+                Ti.API.info('SUCA');
+            }
+        }
+        
+    });
+    
+};
+
 /**
  * All'apertura della finestra carica i poi
  */
@@ -33,9 +58,16 @@ $.arview.addEventListener('open', function() {
     overlay.add(closeButton);
 
     pois = args.enemies;
+    
     assignPOIs();
 });
 
+/**
+ * listener su click
+ */
+/*overlay.addEventListener("click",function(){
+    Ti.API.info('click');
+}):*/
 /**
  * carica i POIe apre la camera
  */
@@ -49,7 +81,7 @@ function assignPOIs() {
     });
     
     $.arview.pois = pois;
-   
+   overlay.addEventListener('click', onFire);
     arConfig.openCamera(headingCallback, locationCallback, accelerometerCallback, closeAR, overlay);
 };
 
