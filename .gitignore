@@ -4,3 +4,6 @@ build
 npm-debug.log
 tmp
 .map
+build/
+build.log
+Resource/
