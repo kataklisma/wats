@@ -1,5 +1,14 @@
 <Alloy>
-	<Window class="container">
-		<Button id="start" title="start" onClick="start" ></Button>
+	<Window class="container" layout="vertical">
+		<ImageView id="homeLogo" image="/images/logo_menu.png"></ImageView>
+		<View id="homeMenu" layout="vertical">
+			<Button id="homeMenuOfficer" class="homeMenuButtons"/>
+			<Button id="homeMenuCommander" class="homeMenuButtons"/>
+			<Button id="homeMenuGedai" class="homeMenuButtons"/>
+		</View>
+		<View id="bottomActions">
+			<Button id="bottomActionsExtras"/>
+			<Button id="bottomActionsSound"/>
+		</View>
 	</Window>
 </Alloy>

@@ -1,8 +1,51 @@
 ".container": {
-	backgroundColor:"white"
+	backgroundColor:"black",
+	top: "10",
+	height: Ti.UI.SIZE
 },
 "Label": {
 	width: Ti.UI.SIZE,
 	height: Ti.UI.SIZE,
 	color: "#000"
 } 
+
+"#homeMenu":{
+	width: "70%",
+	height: Ti.UI.SIZE
+}
+
+"#homeLogo": {
+	top: "40"
+}
+
+".homeMenuButtons": {
+	width: "170dp",
+	top: "15"
+}
+
+"#homeMenuOfficer": {
+	backgroundImage: "/images/btnOfficer.png",
+	top: "40"
+}
+
+"#homeMenuCommander": {
+	backgroundImage: "/images/btnCommander.png"
+}
+
+"#homeMenuGedai": {
+	backgroundImage: "/images/btnGedai.png"
+}
+
+"#bottomActionsExtras": {
+	backgroundImage: "/images/btn_extras.png",
+	width: "88",
+	height: "18",
+	left: "12%",
+	bottom: "20"
+}
+
+"#bottomActionsSound": {
+	backgroundImage: "/images/btn_sound.png",
+	right: "12%",
+	bottom: "10"
+}
