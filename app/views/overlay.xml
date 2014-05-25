@@ -1,0 +1,16 @@
+<Alloy>
+	<Window class="container">
+		<View id="topInfos">
+			<View id="topInfosTime"><Label id="test1">00:33</Label></View>
+			<View id="topInfosDestroyed" layout="horizontal">
+				<ImageView id="topInfosDestroyedIcn" image="/images/icn_enemies.png"></ImageView>
+				<Label id="test2">x 33</Label>
+			</View>
+		</View>
+		<ImageView id="viewFinder" image="/images/viewfinder.png"></ImageView>
+		<View id="bottomActions">
+			<Button id="bottomActionsBack"/>
+			<Button id="bottomActionsSound"/>
+		</View>
+	</Window>
+</Alloy>

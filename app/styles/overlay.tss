@@ -1,0 +1,19 @@
+"#topInfos": {
+	width: '75%',
+	height: '16dp',
+	top: '10dp'
+}
+
+"#topInfosTime": {
+	width: Ti.UI.SIZE,
+	height: Ti.UI.SIZE,
+	top: '0',
+	left: '0'
+}
+
+"#topInfosDestroyed": {
+	width: Ti.UI.SIZE,
+	height: Ti.UI.SIZE,
+	top: '0',
+	right: '0'
+}

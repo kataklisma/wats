@@ -1,7 +1,33 @@
 "Window": {
-	font: {
-		fontFamily: 'type_writer'
-	},
 	zIndex: 0,
 	orientationModes: [Ti.UI.PORTRAIT]
+}
+
+"Label": {
+	font: {
+		fontFamily: 'Type-Writer'
+	},
+	color: "white"
+}
+
+"#bottomActionsBack": {
+	backgroundImage: "/images/btn_back.png",
+	width: "31dp",
+	height: "29dp",
+	left: "12%",
+	bottom: "15dp"
+}
+
+"#bottomActionsExtras": {
+	backgroundImage: "/images/btn_extras.png",
+	width: "88dp",
+	height: "18dp",
+	left: "12%",
+	bottom: "20dp"
+}
+
+"#bottomActionsSound": {
+	backgroundImage: "/images/btn_sound.png",
+	right: "12%",
+	bottom: "10dp"
 }

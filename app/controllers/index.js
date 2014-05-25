@@ -11,5 +11,6 @@ function start(e) {
     }).getView().open();
 }
 
+Alloy.createController('overlay').getView().open();
 
-$.index.open();
+//$.index.open();

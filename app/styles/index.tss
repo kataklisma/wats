@@ -1,6 +1,6 @@
 ".container": {
 	backgroundColor:"black",
-	top: "10",
+	top: "10dp",
 	height: Ti.UI.SIZE
 },
 "Label": {
@@ -15,17 +15,17 @@
 }
 
 "#homeLogo": {
-	top: "40"
+	top: "40dp"
 }
 
 ".homeMenuButtons": {
 	width: "170dp",
-	top: "15"
+	top: "15dp"
 }
 
 "#homeMenuOfficer": {
 	backgroundImage: "/images/btnOfficer.png",
-	top: "40"
+	top: "40dp"
 }
 
 "#homeMenuCommander": {
@@ -34,18 +34,4 @@
 
 "#homeMenuGedai": {
 	backgroundImage: "/images/btnGedai.png"
-}
-
-"#bottomActionsExtras": {
-	backgroundImage: "/images/btn_extras.png",
-	width: "88",
-	height: "18",
-	left: "12%",
-	bottom: "20"
-}
-
-"#bottomActionsSound": {
-	backgroundImage: "/images/btn_sound.png",
-	right: "12%",
-	bottom: "10"
 }
